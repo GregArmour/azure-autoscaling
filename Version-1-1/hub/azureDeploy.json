@@ -65,7 +65,7 @@
             "type": "string",
             "allowedValues": [
                 "latest",
-                "9.1.3"
+                "10.0.7"
                 ],
             "defaultValue": "latest",
             "metadata": {
@@ -237,7 +237,7 @@
     },
     
     "variables": {
-        "baseUrl" : "https://raw.githubusercontent.com/PaloAltoNetworks/azure-autoscaling/master/Version-1-1/hub",
+        "baseUrl" : "https://raw.githubusercontent.com/GregArmour/azure-autoscaling/master/Version-1-1/hub",
         "deployNsgURL"         : "[concat(variables('baseUrl'),'/deployNsg.json')]",
         "deployVnetURL"        : "[concat(variables('baseUrl'),'/deployVnet.json')]",
         "deployLoadBalancerURL": "[concat(variables('baseUrl'),'/deployLoadBalancer.json')]",

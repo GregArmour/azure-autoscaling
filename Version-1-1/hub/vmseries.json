@@ -63,7 +63,7 @@
             "type": "string",
             "allowedValues": [
                 "latest",
-                "9.1.3"
+                "10.0.7"
             ],
             "defaultValue": "latest",
             "metadata": {

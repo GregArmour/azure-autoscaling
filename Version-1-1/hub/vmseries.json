@@ -31,7 +31,7 @@
             "metadata": {
                 "description": "Azure VM size for VM-Series"
             },
-            "defaultValue": "Standard_D3_v2"
+            "defaultValue": "Standard_DS3_v2"
         },
         "vmScaleSetMinCount": {
             "type": "int",
@@ -234,6 +234,11 @@
                 "tier": "Standard",
                 "capacity": "[parameters('vmScaleSetMinCount')]"
             },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ],
             "plan": {
                  "name": "[parameters('vmSku')]",
                  "product": "[variables('imageOffer')]",

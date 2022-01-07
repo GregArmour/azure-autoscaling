@@ -1,0 +1,81 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "deployIntoExistingVnet": {
+      "value": "No"
+    },
+    "vmssName": {
+      "value": "musc01-001-vf01n-"
+    },
+    "virtualNetworkName": {
+      "value": "central-us-azure-security-core"
+    },
+    "virtualNetworkAddressPrefix": {
+      "value": "10.187.40.0/24"
+    },
+    "mgmtSubnetPrefix": {
+      "value": "10.187.40.0/27"
+    },
+    "untrustSubnetPrefix": {
+      "value": "10.187.40.32/27"
+    },
+    "trustSubnetPrefix": {
+      "value": "10.187.40.64/27"
+    },
+    "loadBalancerIP": {
+      "value": "10.187.40.68"
+    },
+    "networkSecurityGroupInboundIP": {
+      "value": "10.0.0.0/16"
+    },
+    "imageVersion": {
+      "value": "10.0.7"
+    },
+    "firewallModel": {
+      "value": "byol"
+    },
+    "appInsightsRegion": {
+      "value": "eastus"
+    },
+    "firewallVmSize": {
+      "value": "Standard_DS3_v2"
+    },
+    "username": {
+      "value": "paloadmin"
+    },
+    "password": {
+      "value": "Sprinkle#"
+    },
+    "bootstrapStorageAccount": {
+      "value": "palodeployment"
+    },
+    "bootstrapStorageAccountAccessKey": {
+      "value": "dQsAdiDt4X4KW640U3DfiBx2mGGzfzauRJVgV37gHWge7d+rG1YUMggmsKevh1g50ACtsnPPIjwdl7v6fRNeog=="
+    },
+    "bootstrapFileShare": {
+      "value": "palobootstrap"
+    },
+    "bootstrapSharedDir": {
+      "value": "None"
+    },
+    "vmScaleSetMinCount": {
+      "value": 2
+    },
+    "vmScaleSetMaxCount": {
+      "value": 3
+    },
+    "autoScaleMetric": {
+      "value": "Data Plane CPU Utilization %"
+    },
+    "scaleInThreshold": {
+      "value": 20
+    },
+    "scaleOutThreshold": {
+      "value": 80
+    },
+    "panoramaPluginMessageHandlerUrl": {
+      "value": "https://palosvcbus.azurewebsites.net/api/infra?code=eNJLUnrMaeaHcFBXT0HhMEkQhm79zWSwOYJtS/Wh5tIEwqskzPDHqw=="
+    }
+  }
+}

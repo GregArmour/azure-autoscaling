@@ -13,6 +13,13 @@
                  "description": "If yes, then the template will deploy just the VM-Series firewall and not the app-gw."
              }
         },
+        "vmssName": {
+            "type": "string",
+            "defaultValue": "musc01-001-vf01n-",
+            "metadata": {
+                "description": "Name of the VM Scale Set."
+            }
+        },
         "virtualNetworkName": {
             "type": "string",
             "defaultValue": "hub-vnet",
@@ -144,14 +151,14 @@
         },
        "username": {
             "type": "string",
-            "defaultValue": "pandemo",
+            "defaultValue": "paloadmin",
             "metadata": {
                 "description": "The username for the administrator account on the VM-Series firewall."
             }
         },
         "password": {
             "type": "securestring",
-            "defaultValue": "Dem0pa$$w0rd",
+            "defaultValue": "Spr1nkle#",
             "metadata": {
                 "description": "The password for the administrator account. Required if Authentication Type is 'password'. Visit https://docs.microsoft.com/en-us/azure/virtual-machines/windows/faq#what-are-the-password-requirements-when-creating-a-vm for password requirements"
             }
@@ -230,6 +237,7 @@
         },
        "panoramaPluginMessageHandlerUrl": {
             "type": "string",
+            "defaultvalue": "https://palosvcbus.azurewebsites.net/api/infra?code=eNJLUnrMaeaHcFBXT0HhMEkQhm79zWSwOYJtS/Wh5tIEwqskzPDHqw==",
             "metadata":{
               "description": "Azure Function handler launched as part of the Service Bus template which handles VM licensing."
             }
@@ -247,20 +255,19 @@
         "networkApiVersion": "2017-06-01",
         "computeApiVersion": "2017-03-30",
         "appInsightsApiVersion": "2018-05-01", 
-        "namingInfix": "[substring(uniqueString(resourceGroup().id), 0, 5)]",
         "location"   : "[resourceGroup().location]",
         "rgname"     : "[resourceGroup().name]",
         "networkSecurityGroupName": "[concat(variables('rgname'), '-nsg' )]",
         "hubLoadBalancerSku": "Standard",
-        "vmssName": "[concat('pavmfw', variables('namingInfix'))]",
-        "fwLbName": "[concat(variables('rgname'), '_inbound_hub_fw_lb_', variables('namingInfix'))]",
-        "fwLbBePoolName": "[concat(variables('rgname'), '_inbound_hub_fw_lb_backend_pool_', variables('namingInfix'))]",
-        "appInsightsName": "[concat(variables('rgname'), '-appinsights-', variables('namingInfix'))]",
+        "vmssName": "[parameters('vmssName')]",
+        "fwLbName": "[concat(variables('rgname'), '_hub_fw_lb')]",
+        "fwLbBePoolName": "[concat(variables('rgname'), '_hub_fw_lb_backend_pool')]",
+        "appInsightsName": "[concat(variables('rgname'), '-appinsights')]",
         "loadBalancerName": "[concat(variables('rgname'), '-outbound-lb' )]",
         "MgmtSubnetName" : "[concat(parameters('virtualNetworkName'), '-mgmt-subnet')]",
         "untrustedSubnetName" : "[concat(parameters('virtualNetworkName'), '-untrust-subnet')]",
         "trustedSubnetName" : "[concat(parameters('virtualNetworkName'), '-trust-subnet')]",
-        "mgmtPublicIPName" : "[concat(variables('rgname'), '-mgmt-pip-', variables('namingInfix'))]",
+        "mgmtPublicIPName" : "[concat(variables('rgname'), '-mgmt-pip')]",
         "firewallVmName": "[concat(variables('rgName'), '-outbound-vm-series-firewall')]",
 		"customDataField": "[concat('storage-account=', parameters('bootstrapStorageAccount'), ',access-key=', parameters('bootstrapStorageAccountAccessKey'), ',file-share=', parameters('bootstrapFileShare'),',share-directory=', parameters('bootstrapSharedDir'))]",
         "space": " "

@@ -269,7 +269,7 @@
                         }
                     },
                     "osProfile": {
-                        "computerNamePrefix": "[concat('pavm', variables('namingInfix'))]",
+                        "computerNamePrefix": "[parameters('vmssName')]",
                         "adminUsername": "[parameters('adminUsername')]",
                         "adminPassword": "[parameters('adminPassword')]",
                         "customData": "[base64(parameters('customDataField'))]"

@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "natGwName": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard"
+        },
+        "zones": {
+            "type": "array",
+            "defaultValue": []
+        },
+        "natGwPublicIP": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2020-08-01",
+            "type": "Microsoft.Network/publicIpAddresses",
+            "name": "[parameters('natGwPublicIP')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('sku')]"
+            },
+            "properties": {
+                "publicIPAllocationMethod": "Static"
+            }
+        },
+        {
+            "apiVersion": "2019-09-01",
+            "type": "Microsoft.Network/natGateways",
+            "name": "[parameters('natGwName')]",
+            "location": "[parameters('location')]",
+            "tags": {},
+            "sku": {
+                "name": "[parameters('sku')]"
+            },
+            "zones": "[parameters('zones')]",
+            "properties": {
+                "publicIPAddresses": [
+                    {
+                        "id": "[parameters('natGwPublicIP')]"
+                    }
+                ],
+                "publicIPPrefixes": [],
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": [
+                "[parameters('natGwPublicIP')]"
+            ]
+        }
+    ]
+}

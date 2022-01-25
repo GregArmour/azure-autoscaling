@@ -6,7 +6,7 @@
       "value": "No"
     },
     "vmssName": {
-      "value": "musc01-001-vf01n-"
+      "value": "musc01-001-vf01n"
     },
     "virtualNetworkName": {
       "value": "central-us-azure-security-core"
@@ -45,7 +45,7 @@
       "value": "paloadmin"
     },
     "password": {
-      "value": "Sprinkle#"
+      "value": "Spr1nkle#"
     },
     "bootstrapStorageAccount": {
       "value": "palodeployment"

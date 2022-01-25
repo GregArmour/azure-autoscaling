@@ -15,7 +15,7 @@
         },
         "vmssName": {
             "type": "string",
-            "defaultValue": "musc01-001-vf01n-",
+            "defaultValue": "musc01-001-vf01n",
             "metadata": {
                 "description": "Name of the VM Scale Set."
             }
@@ -74,7 +74,7 @@
                 "latest",
                 "10.0.7"
                 ],
-            "defaultValue": "latest",
+            "defaultValue": "10.0.7",
             "metadata": {
                 "description": "VM-Series Firewall PAN OS Version"
             }
@@ -147,7 +147,7 @@
             "metadata": {
                 "description": "Azure VM size for VM-Series"
             },
-            "defaultValue": "Standard_D3_v2"
+            "defaultValue": "Standard_DS3_v2"
         },
        "username": {
             "type": "string",
@@ -164,7 +164,7 @@
             }
         },
 		"bootstrapStorageAccount": {
-			"defaultValue": "",
+			"defaultValue": "palodeployment",
 			"type": "String",
 			"metadata": {
                 "description": "The name of the storage account that contains the bootstrap file share."
@@ -172,12 +172,13 @@
 		},
         "bootstrapStorageAccountAccessKey": {
             "type": "securestring",
+            "defaultValue": "dQsAdiDt4X4KW640U3DfiBx2mGGzfzauRJVgV37gHWge7d+rG1YUMggmsKevh1g50ACtsnPPIjwdl7v6fRNeog==",
             "metadata":{
                 "description": "The access key for the bootstrap storage account."
             }
         },
 		"bootstrapFileShare": {
-			"defaultValue": "",
+			"defaultValue": "palobootstrap",
 			"type": "String",
 			"metadata": {
                 "description": "The name of the file share that contains the bootstrap folders."
@@ -215,7 +216,7 @@
                   "SSL Proxy Session Utilization %",
                   "Session Utilization %"                  
                 ], 
-             "defaultValue": "Active Sessions", 
+             "defaultValue": "Data Plane CPU Utilization %", 
              "metadata": {
                  "description": "Select the metric on which to trigger an auto scale event."
              } 
@@ -223,14 +224,14 @@
  
         "scaleInThreshold": {
             "type": "int",
-            "defaultValue": 2000,
+            "defaultValue": 20,
             "metadata": {
                 "description": "The threshold below which the VM-Series firewall is scaled in."
             }
         },
         "scaleOutThreshold": {
             "type": "int",
-            "defaultValue": 32000,
+            "defaultValue": 80,
             "metadata": {
                 "description": "The threshold above which the VM-Series firewall is scaled out."
             }
@@ -251,6 +252,7 @@
         "deployLoadBalancerURL": "[concat(variables('baseUrl'),'/deployLoadBalancer.json')]",
         "appInsightsUrl": "[concat(variables('baseUrl'),'/deployAppInsights.json')]",
         "vmseriesURL" : "[concat(variables('baseUrl'),'/vmseries.json')]",
+        "deployNatGWURL" : "[concat(variables('baseUrl'),'/deployNatGW.json')]",
 
         "networkApiVersion": "2017-06-01",
         "computeApiVersion": "2017-03-30",
@@ -267,6 +269,8 @@
         "MgmtSubnetName" : "[concat(parameters('virtualNetworkName'), '-mgmt-subnet')]",
         "untrustedSubnetName" : "[concat(parameters('virtualNetworkName'), '-untrust-subnet')]",
         "trustedSubnetName" : "[concat(parameters('virtualNetworkName'), '-trust-subnet')]",
+        "natGwName" : "[concat(parameters('virtualNetworkName'), '-natgw')]",
+        "natGwPublicIP" : "[concat(parameters('virtualNetworkName'), '-natip')]",
         "mgmtPublicIPName" : "[concat(variables('rgname'), '-mgmt-pip')]",
         "firewallVmName": "[concat(variables('rgName'), '-outbound-vm-series-firewall')]",
 		"customDataField": "[concat('storage-account=', parameters('bootstrapStorageAccount'), ',access-key=', parameters('bootstrapStorageAccountAccessKey'), ',file-share=', parameters('bootstrapFileShare'),',share-directory=', parameters('bootstrapSharedDir'))]",
@@ -350,6 +354,35 @@
                     },
                     "virtualNetworkAddressPrefix": {
                         "value": "[parameters('virtualNetworkAddressPrefix')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "deployNatGw",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "dependsOn": [
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('deployNatGWURL')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[variables('location')]"
+                    },
+                    "natGwName": {
+                        "value": "[variables('natGwName')]"
+                    },
+                    "natGwPublicIP": {
+                        "value": "[variables('natGwPublicIP')]"
+                    },
+                    "zones": {
+                        "type": "array",
+                        "value": []
                     }
                 }
             }

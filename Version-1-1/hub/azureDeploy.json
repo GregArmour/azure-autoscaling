@@ -381,7 +381,6 @@
                         "value": "[variables('natGwPublicIP')]"
                     },
                     "zones": {
-                        "type": "array",
                         "value": []
                     }
                 }

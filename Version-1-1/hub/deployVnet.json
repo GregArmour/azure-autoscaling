@@ -62,6 +62,12 @@
 				"description": "Trust subnet CIDR"
 			}
 		},
+        "rgname": {
+            "type": "string"
+        },
+        "natGwName": {
+            "type": "string"
+        },
         "deployIntoExistingVnet": {
              "type": "string",
              "defaultValue": "No",
@@ -146,7 +152,10 @@
             "name": "[concat(variables('vnetname'), '/', parameters('untrustSubnetName'))]",
             "location": "[variables('location')]",
             "properties": {
-                "addressPrefix": "[if(equals(parameters('untrustSubnetPrefix'), 'None'), json('null'), parameters('untrustSubnetPrefix'))]"
+                "addressPrefix": "[if(equals(parameters('untrustSubnetPrefix'), 'None'), json('null'), parameters('untrustSubnetPrefix'))]",
+				"natGateway": {
+								"id": "[concat(subscription().id, '/resourceGroups/', parameters('rgname'), '/providers/Microsoft.Network/natGateways/', parameters('natGwName'))]"
+                            }
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetname'), parameters('mgmtSubnetName'))]"

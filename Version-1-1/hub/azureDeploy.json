@@ -430,6 +430,12 @@
                     "trustSubnetPrefix": {
                         "value": "[parameters('trustSubnetPrefix')]"
                     },
+                    "natGwName": {
+                        "value": "[variables('natGwName')]"
+                    },
+                    "rgname": {
+                        "value": "[variables('rgname')]"
+                    },
                     "deployIntoExistingVnet": {
                         "value": "[parameters('deployIntoExistingVnet')]"
                     }

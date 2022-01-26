@@ -18,6 +18,9 @@
         },
         "natGwPublicIP": {
             "type": "string"
+        },
+        "rgname": {
+            "type": "string"
         }
     },
     "resources": [
@@ -46,7 +49,7 @@
             "properties": {
                 "publicIPAddresses": [
                     {
-                        "id": "[parameters('natGwPublicIP')]"
+                        "id": "[concat(subscription().id, '/resourceGroups/', parameters('rgname'), '/providers/Microsoft.Network/publicIPAddresses/', parameters('natGwPublicIP'))]"
                     }
                 ],
                 "publicIPPrefixes": [],

@@ -377,6 +377,9 @@
                     "natGwName": {
                         "value": "[variables('natGwName')]"
                     },
+                    "rgname": {
+                        "value": "[variables('rgname')]"
+                    },
                     "natGwPublicIP": {
                         "value": "[variables('natGwPublicIP')]"
                     },

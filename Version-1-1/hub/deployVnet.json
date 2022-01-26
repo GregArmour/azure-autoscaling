@@ -102,7 +102,10 @@
 			{
 				"name": "[parameters('untrustSubnetName')]",
 				"properties": {
-					"addressPrefix": "[parameters('untrustSubnetPrefix')]"
+					"addressPrefix": "[parameters('untrustSubnetPrefix')]",
+					"natGateway": {
+						"id": "[concat(subscription().id, '/resourceGroups/', parameters('rgname'), '/providers/Microsoft.Network/natGateways/', parameters('natGwName'))]"
+                	}
 				}
 			},
 			{
@@ -154,8 +157,8 @@
             "properties": {
                 "addressPrefix": "[if(equals(parameters('untrustSubnetPrefix'), 'None'), json('null'), parameters('untrustSubnetPrefix'))]",
 				"natGateway": {
-								"id": "[concat(subscription().id, '/resourceGroups/', parameters('rgname'), '/providers/Microsoft.Network/natGateways/', parameters('natGwName'))]"
-                            }
+					"id": "[concat(subscription().id, '/resourceGroups/', parameters('rgname'), '/providers/Microsoft.Network/natGateways/', parameters('natGwName'))]"
+                }
             },
             "dependsOn": [
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetname'), parameters('mgmtSubnetName'))]"

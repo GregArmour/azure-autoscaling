@@ -250,6 +250,11 @@
                 "upgradePolicy": {
                     "mode": "Automatic"
                 },
+                "scaleInPolicy": {
+                    "rules": [
+                        "OldestVM"
+                    ]
+                },
                 "virtualMachineProfile": {
                     "storageProfile": {
                         "osDisk": {

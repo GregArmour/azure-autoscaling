@@ -30,7 +30,7 @@
       "value": "10.0.0.0/16"
     },
     "imageVersion": {
-      "value": "10.0.7"
+      "value": "10.1.5"
     },
     "firewallModel": {
       "value": "byol"
@@ -60,10 +60,10 @@
       "value": "None"
     },
     "vmScaleSetMinCount": {
-      "value": 2
+      "value": 0
     },
     "vmScaleSetMaxCount": {
-      "value": 3
+      "value": 0
     },
     "autoScaleMetric": {
       "value": "Data Plane CPU Utilization %"

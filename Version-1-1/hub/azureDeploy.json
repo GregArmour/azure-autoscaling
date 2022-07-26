@@ -193,14 +193,14 @@
 		},
         "vmScaleSetMinCount": {
             "type": "int",
-            "defaultValue": 2,
+            "defaultValue": 0,
             "metadata": {
                 "description": "The minimum (and default) number of VM-Series firewall(s) to deploy in the VM Scale Set."
             }
         },
         "vmScaleSetMaxCount": {
             "type": "int",
-            "defaultValue": 3,
+            "defaultValue": 0,
             "metadata": {
                 "description": "The maximum number of VM-Series firewall(s) to deploy in the VM Scale Set."
             }

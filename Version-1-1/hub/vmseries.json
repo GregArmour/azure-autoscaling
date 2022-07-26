@@ -248,7 +248,12 @@
                 "overprovision": "false",
                 "singlePlacementGroup": "false",
                 "upgradePolicy": {
-                    "mode": "Automatic"
+                    "mode": "Manual"
+                },
+                "scaleInPolicy": {
+                    "rules": [
+                        "OldestVM"
+                    ]
                 },
                 "virtualMachineProfile": {
                     "storageProfile": {

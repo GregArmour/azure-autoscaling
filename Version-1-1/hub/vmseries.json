@@ -262,10 +262,7 @@
                         },
                         "dataDisks": [],
                         "imageReference": {
-                            "publisher": "[variables('imagePublisher')]",
-                            "offer": "[variables('imageOffer')]",
-                            "sku": "[parameters('vmSku')]",
-                            "version": "[parameters('imageVersion')]"
+                            "id": "/subscriptions/24720fa6-2401-462a-bc56-207724e2bde7/resourceGroups/PaloImageGalleryCentralUS/providers/Microsoft.Compute/galleries/PaloImages.CentralUS/images/PaloFirewall/versions/10.1.5"
                         }
                     },
                     "osProfile": {

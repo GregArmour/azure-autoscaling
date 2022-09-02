@@ -262,7 +262,7 @@
                         },
                         "dataDisks": [],
                         "imageReference": {
-                            "id": "/subscriptions/24720fa6-2401-462a-bc56-207724e2bde7/resourceGroups/Dev-Security-vNet/providers/Microsoft.Compute/images/musc01-dev-fw02"
+                            "id": "/subscriptions/24720fa6-2401-462a-bc56-207724e2bde7/resourceGroups/Dev-Security-USEast/providers/Microsoft.Compute/images/musc01-dev-fw02-eastus"
                         }
                     },
                     "osProfile": {

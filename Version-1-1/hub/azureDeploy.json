@@ -253,6 +253,7 @@
         "appInsightsUrl": "[concat(variables('baseUrl'),'/deployAppInsights.json')]",
         "vmseriesURL" : "[concat(variables('baseUrl'),'/vmseries.json')]",
         "deployNatGWURL" : "[concat(variables('baseUrl'),'/deployNatGW.json')]",
+        "deployStorageAcctURL" : "[concat(variables('baseUrl'),'/deployStorageAcct.json')]",
 
         "networkApiVersion": "2017-06-01",
         "computeApiVersion": "2017-03-30",
@@ -262,6 +263,8 @@
         "networkSecurityGroupName": "[concat(variables('rgname'), '-nsg' )]",
         "hubLoadBalancerSku": "Standard",
         "vmssName": "[parameters('vmssName')]",
+        "storageAccount_name": "[concat(variables('vmssName'), '-storage')]",
+        "storageAccount_URI": "[concat('https://', variables('storageAccount_name'), '.blob.core.windows.net/')]",
         "fwLbName": "[concat(variables('rgname'), '_hub_fw_lb')]",
         "fwLbBePoolName": "[concat(variables('rgname'), '_hub_fw_lb_backend_pool')]",
         "appInsightsName": "[concat(variables('rgname'), '-appinsights')]",
@@ -294,6 +297,26 @@
                     },
                     "appInsightsRegion": {
                         "value": "[parameters('appInsightsRegion')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "deployStorageAccount",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2015-01-01",
+            "properties": { 
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('deployStorageAcctURL')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccount_name": {
+                        "value": "[variables('storageAccount_name')]"
+                    },
+                    "location": {
+                        "value": "[variables('location')]"
                     }
                 }
             }
@@ -489,6 +512,7 @@
             "apiVersion": "2015-01-01",
             "dependsOn": [
                 "Microsoft.Resources/deployments/deployVNet",
+                "Microsoft.Resources/deployments/deployStorageAccount",
                 "Microsoft.Resources/deployments/deployOutboundLoadBalancer"
             ],
             "properties": {
@@ -545,6 +569,9 @@
                     },
                     "appInsightsName": {
                         "value": "[variables('appInsightsName')]"
+                    },
+                    "storageAccount_URI": {
+                        "value": "[variables('storageAccount_URI')]"
                     },
                     "autoScaleMetric": {
                         "value": "[parameters('autoScaleMetric')]"

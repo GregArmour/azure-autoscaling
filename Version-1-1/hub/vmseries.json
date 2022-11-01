@@ -132,6 +132,12 @@
                 "description": "App Insights where custom metrics is hosted"
             }
         },
+        "storageAccount_URI": {
+            "type": "string",
+            "metadata": {
+                "description": "Storage account for boot diagnostics"
+            }
+        },
         "autoScaleMetric": {
              "type": "string",
              "allowedValues": [
@@ -250,6 +256,12 @@
                 "upgradePolicy": {
                     "mode": "Manual"
                 },
+                "scaleInPolicy": {
+                    "rules": [
+                        "OldestVM"
+                    ],
+                    "forceDeletion": false
+                },
                 "virtualMachineProfile": {
                     "storageProfile": {
                         "osDisk": {
@@ -339,7 +351,13 @@
                                 }]
                             }
                         }]
+                    },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true,
+                        "storageUri": "[parameters('storageAccount_URI')]"
                     }
+                }
                 }
             }
         },

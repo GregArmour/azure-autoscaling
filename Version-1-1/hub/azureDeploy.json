@@ -193,14 +193,14 @@
 		},
         "vmScaleSetMinCount": {
             "type": "int",
-            "defaultValue": 0,
+            "defaultValue": 1,
             "metadata": {
                 "description": "The minimum (and default) number of VM-Series firewall(s) to deploy in the VM Scale Set."
             }
         },
         "vmScaleSetMaxCount": {
             "type": "int",
-            "defaultValue": 0,
+            "defaultValue": 1,
             "metadata": {
                 "description": "The maximum number of VM-Series firewall(s) to deploy in the VM Scale Set."
             }
@@ -263,7 +263,7 @@
         "networkSecurityGroupName": "[concat(variables('rgname'), '-nsg' )]",
         "hubLoadBalancerSku": "Standard",
         "vmssName": "[parameters('vmssName')]",
-        "strippedVmssName": "[replace(parameters(variables('vmssName')),'-', '')]",
+        "strippedVmssName": "[replace(parameters('vmssName'),'-', '')]",
         "storageAccount_name": "[concat(variables('strippedVmssName'), 'storage')]",
         "storageAccount_URI": "[concat('https://', variables('storageAccount_name'), '.blob.core.windows.net/')]",
         "fwLbName": "[concat(variables('rgname'), '_hub_fw_lb')]",

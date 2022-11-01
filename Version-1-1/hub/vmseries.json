@@ -256,12 +256,6 @@
                 "upgradePolicy": {
                     "mode": "Manual"
                 },
-                "scaleInPolicy": {
-                    "rules": [
-                        "OldestVM"
-                    ],
-                    "forceDeletion": false
-                },
                 "virtualMachineProfile": {
                     "storageProfile": {
                         "osDisk": {
@@ -352,12 +346,12 @@
                             }
                         }]
                     },
-                "diagnosticsProfile": {
-                    "bootDiagnostics": {
-                        "enabled": true,
-                        "storageUri": "[parameters('storageAccount_URI')]"
+                    "diagnosticsProfile": {
+                        "bootDiagnostics": {
+                            "enabled": true,
+                            "storageUri": "[parameters('storageAccount_URI')]"
+                        }
                     }
-                }
                 }
             }
         },

@@ -39,7 +39,7 @@
                 },
                 "supportsHttpsTrafficOnly": true,
                 "encryption": {
-                    "requireInfrastructureEncryption": false,
+                    "requireInfrastructureEncryption": true,
                     "services": {
                         "file": {
                             "keyType": "Account",

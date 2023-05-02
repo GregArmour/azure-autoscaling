@@ -72,9 +72,9 @@
             "type": "string",
             "allowedValues": [
                 "latest",
-                "10.1.7"
+                "10.1.9"
                 ],
-            "defaultValue": "10.1.7",
+            "defaultValue": "10.1.9",
             "metadata": {
                 "description": "VM-Series Firewall PAN OS Version"
             }

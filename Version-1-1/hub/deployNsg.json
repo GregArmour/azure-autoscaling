@@ -26,88 +26,197 @@
 		"name": "[concat(parameters('nsgName'), '-mgmt')]",
 		"location": "[parameters('location')]",
 		"properties": {
-			"securityRules": [{
-			"name": "Allow-Outside-From-IP",
-				"properties": {
-					"description": "Rule",
-					"protocol": "*",
-					"sourcePortRange": "*",
-					"destinationPortRange": "*",
-					"sourceAddressPrefix": "[parameters('srcIPInboundNSG')]",
-					"destinationAddressPrefix": "*",
-					"access": "Allow",
-					"priority": 100,
-					"direction": "Inbound"
-				}
-			}, 
-			{
-				"name": "Allow-Intra",
-				"properties": {
-					"description": "Allow intra network traffic",
-					"protocol": "*",
-					"sourcePortRange": "*",
-					"destinationPortRange": "*",
-					"sourceAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
-					"destinationAddressPrefix": "*",
-					"access": "Allow",
-					"priority": 101,
-					"direction": "Inbound"
-				}
-			}, 
-			{
-				"name": "Default-Deny",
-				"properties": {
-					"description": "Default-Deny if we don't match Allow rule",
-					"protocol": "*",
-					"sourcePortRange": "*",
-					"destinationPortRange": "*",
-					"sourceAddressPrefix": "*",
-					"destinationAddressPrefix": "*",
-					"access": "Deny",
-					"priority": 200,
-					"direction": "Inbound"
-				}
-			}]
-		}
-	},
-	{
-        "type": "Microsoft.Network/networkSecurityGroups",
-		"name": "[concat(parameters('nsgName'), '-untrust')]",
-        "apiVersion": "2017-06-01",
-        "location": "[parameters('location')]",
-        "properties": {
-            "securityRules": [
-            {
-                "name": "Port_Any",
-                "properties": {
-                    "protocol": "*",
-                    "sourcePortRange": "*",
-                    "destinationPortRange": "*",
-                    "sourceAddressPrefix": "*",
-                    "destinationAddressPrefix": "*",
-                    "access": "Allow",
-                    "priority": 100,
-                    "direction": "Inbound",
-                    "sourceAddressPrefixes": [],
-                    "destinationAddressPrefixes": []
-                }
-            },
-            {
-                "name": "Port_Any_outbound",
-                "properties": {
-                    "protocol": "*",
-                    "sourcePortRange": "*",
-                    "destinationPortRange": "*",
-                    "sourceAddressPrefix": "*",
-                    "destinationAddressPrefix": "*",
-                    "access": "Allow",
-                    "priority": 100,
-                    "direction": "Outbound",
-                    "sourceAddressPrefixes": [],
-                    "destinationAddressPrefixes": []
-                }
-            }
-        ],
+			"securityRules": [
+                    {
+                        "name": "Management",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "destinationAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 1010,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "172.28.0.0/15",
+                                "198.206.141.0/24",
+                                "10.196.58.0/24",
+                                "10.212.0.0/23",
+                                "10.208.231.0/24"
+                            ],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "SSH",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "destinationAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 1020,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "172.28.0.0/15",
+                                "198.206.141.0/24",
+                                "10.196.58.0/24",
+                                "10.212.0.0/23",
+                                "10.208.231.0/24"
+                            ],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Firewalls_from_Panorama",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "10.187.56.0/24",
+                            "destinationAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 1030,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [
+                                "443",
+                                "3978",
+                                "28260",
+                                "28270",
+                                "28443",
+                                "28769",
+                                "49160",
+                                "49190"
+                            ],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "SNMP_Poll",
+                        "properties": {
+                            "protocol": "UDP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "161",
+                            "destinationAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 1040,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "198.206.141.0/24",
+                                "10.196.58.0/24"
+                            ],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "ICMP",
+                        "properties": {
+                            "protocol": "ICMP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "destinationAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 1050,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [
+                                "172.28.0.0/15",
+                                "198.206.141.0/24",
+                                "10.196.58.0/24",
+                                "10.212.0.0/23",
+                                "10.208.231.0/24"
+                            ],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-443-outbound",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 900,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "Allow-any-RFC1918",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 950,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "10.0.0.0/8",
+                                "172.16.0.0/12",
+                                "192.168.0.0/16"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Allow-any-Internal-Networks",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "[parameters('virtualNetworkAddressPrefix')]",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": [
+                                "138.12.0.0/17",
+                                "198.187.133.0/24",
+                                "198.206.141.0/24",
+                                "207.24.42.0/23",
+                                "207.24.134.0/24",
+                                "207.24.137.0/24",
+                                "207.24.138.0/24",
+                                "207.25.180.0/24"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "Deny-Any-Outbound",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 4096,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ],
 	        "defaultSecurityRules": [
     	        {
         	        "name": "AllowVnetInBound",

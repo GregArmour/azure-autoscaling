@@ -240,6 +240,11 @@
                 "tier": "Standard",
                 "capacity": "[parameters('vmScaleSetMinCount')]"
             },
+            "zones": [
+                "1",
+                "2",
+                "3"
+            ],
             "plan": {
                  "name": "[parameters('vmSku')]",
                  "product": "[variables('imageOffer')]",
